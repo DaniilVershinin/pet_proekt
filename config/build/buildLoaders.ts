@@ -3,6 +3,11 @@ import webpack from 'webpack';
 import { BuildOptions } from './types/config';
 
 export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
+  const svgLoader = {
+    test: /\.svg$/,
+    use: ['@svgr/webpack'],
+  };
+
   const cssLoaders: webpack.RuleSetRule = {
     test: /\.s[ac]ss$/i,
     use: [
@@ -27,11 +32,45 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
     ],
   };
 
+  const babelLoader = {
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader',
+    },
+  };
+
   const typescriptLoader: webpack.RuleSetRule = {
     test: /\.tsx?$/,
-    use: 'ts-loader',
+    use: [
+      {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+          plugins: [
+            [
+              'i18next-extract',
+              {
+                locales: ['ru', 'en'],
+                keyAsDefaultValue: true,
+                outputPath: 'public/locales/{{locale}}/{{ns}}.json',
+              },
+            ],
+          ],
+        },
+      },
+    ],
     exclude: /node_modules/,
   };
 
-  return [typescriptLoader, cssLoaders];
+  const fileLoader = {
+    test: /\.(png|jpe?g|gif)$/i,
+    use: [
+      {
+        loader: 'file-loader',
+      },
+    ],
+  };
+
+  return [typescriptLoader, cssLoaders, fileLoader, svgLoader, babelLoader];
 }

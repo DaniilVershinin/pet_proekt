@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkubi=self.webpackChunkubi||[]).push([[543],{543:(u,e,n)=>{n.r(e),n.d(e,{default:()=>c});var s=n(893);const c=function(){return(0,s.jsx)("div",{children:"ABOUT PAGE"})}}}]);

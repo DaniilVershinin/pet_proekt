@@ -8,6 +8,9 @@
     "allowJs": true,
     "moduleResolution": "bundler", 
     "baseUrl": ".",
+    "paths": {
+      "*": ["./src/*"]
+    },
     "esModuleInterop": true, 
     "allowSyntheticDefaultImports": true,
   }, 
