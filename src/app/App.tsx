@@ -1,8 +1,8 @@
-import React, {Suspense, useContext} from 'react';
+import React, {Suspense, useContext, useEffect} from 'react';
 import './styles/index.scss';
 import {Route, Routes} from 'react-router-dom';
 import {Link} from 'react-router-dom';
-import {classNames} from 'shared/lib/classNames';
+import {classNames} from 'shared/lib/classNames/classNames';
 import {useTheme} from 'app/providers/ThemeProvider';
 import {MainPage} from 'pages/MainPage';
 import {AboutPage} from 'pages/AboutPage';
@@ -15,6 +15,7 @@ import {changeLanguage} from "i18next";
 
 export const App: React.FC = () => {
     const {theme} = useTheme();
+
 
     return (
         <div className={classNames('app', {}, [theme])}>
